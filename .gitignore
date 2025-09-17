@@ -24,3 +24,4 @@ Makefile
 
 # claude
 .claude/
+ref/

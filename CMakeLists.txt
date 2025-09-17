@@ -24,8 +24,12 @@ target_link_libraries(solver Threads::Threads)
 add_executable(parallel_solver src/parallel_solver.cpp)
 target_link_libraries(parallel_solver Threads::Threads)
 
-# Set executable properties for both solvers
-set_target_properties(solver parallel_solver PROPERTIES
+# Akos-optimized solver with packed data structures
+add_executable(solver_akos src/solver_akos.cpp)
+target_link_libraries(solver_akos Threads::Threads)
+
+# Set executable properties for all solvers
+set_target_properties(solver parallel_solver solver_akos PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
     CXX_STANDARD 23
     CXX_STANDARD_REQUIRED ON
@@ -35,7 +39,7 @@ set_target_properties(solver parallel_solver PROPERTIES
 include(CheckIPOSupported)
 check_ipo_supported(RESULT supported OUTPUT error)
 if(supported)
-    set_property(TARGET solver parallel_solver PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+    set_property(TARGET solver parallel_solver solver_akos PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
     message(STATUS "Link Time Optimization enabled")
 else()
     message(STATUS "Link Time Optimization not supported: ${error}")
@@ -47,5 +51,5 @@ message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
 message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
 # Installation rules
-install(TARGETS solver parallel_solver DESTINATION bin)
+install(TARGETS solver parallel_solver solver_akos DESTINATION bin)
 install(DIRECTORY data/ DESTINATION share/edge-puzzle-solver/data)
