@@ -1,0 +1,2 @@
+# Position the first piece correctly
+0 0 1 3
