@@ -8,7 +8,6 @@ All notable changes to the E2 Puzzle C++ Solver will be documented in this file.
 - High-performance solver with Akos-inspired optimizations as the new default
 - Standardized performance output format across all solvers
 - Comprehensive performance profiling and analysis
-- Archived original solver as `solver_old.cpp`
 
 ### Changed
 - **BREAKING**: Replaced default solver with Akos-inspired high-performance version
