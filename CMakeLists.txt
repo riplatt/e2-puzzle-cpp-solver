@@ -24,7 +24,8 @@ target_link_libraries(solver Threads::Threads)
 add_executable(parallel_solver src/parallel_solver.cpp)
 target_link_libraries(parallel_solver Threads::Threads)
 
-# Set executable properties for both solvers
+
+# Set executable properties for all solvers
 set_target_properties(solver parallel_solver PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
     CXX_STANDARD 23
