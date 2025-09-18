@@ -1,5 +1,5 @@
-// solver.cpp - Main E2 puzzle solver
-// Akos-inspired optimized solver with packed data structures
+// solver_akos.cpp - Akos-inspired optimized solver
+// Packed data structures and optimizations based on assembly implementation
 //
 // Performance target: Approach 100M placements/second
 
@@ -87,7 +87,7 @@ std::vector<Hint> parse_hints_file(const std::string& filename) {
     return hints;
 }
 
-class SpeedSolver {
+class AkosSolver {
 private:
     // Board configuration
     int width, height, num_pieces;
@@ -151,7 +151,7 @@ private:
     int interior_count[MAX_EDGE_TYPES][MAX_EDGE_TYPES];
 
 public:
-    SpeedSolver() {
+    AkosSolver() {
         memset(piece_used, 0, sizeof(piece_used));
         memset(corner_tr_count, 0, sizeof(corner_tr_count));
         memset(corner_bl_count, 0, sizeof(corner_bl_count));
@@ -582,7 +582,7 @@ private:
 
         // Print clean header
         std::cout << "Puzzle: " << width << "x" << height << " (" << num_pieces << " positions)" << std::endl;
-        std::cout << "Solver: High-performance (Akos-inspired)" << std::endl;
+        std::cout << "Solver: Akos-inspired (packed format)" << std::endl;
 
         double table_time = build_position_tables();
 
@@ -617,7 +617,7 @@ private:
 };
 
 bool solve_puzzle(const std::string& puzzle_file, const std::string& hints_file, const std::string& output_file, bool find_first_only) {
-    SpeedSolver solver;
+    AkosSolver solver;
 
     // Load puzzle
     if (!solver.load_puzzle(puzzle_file)) {
