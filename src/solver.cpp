@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include "solution_storage.h"
+#include "system_info.h"
 
 // Performance constants
 static constexpr int MAX_EDGE_TYPES = 32;
@@ -580,7 +581,9 @@ private:
         placements_tried = 0;
         solutions_found = 0;
 
-        // Print clean header
+        // Print system and puzzle information
+        SystemInfo system_info;
+        system_info.print_system_header();
         std::cout << "Puzzle: " << width << "x" << height << " (" << num_pieces << " positions)" << std::endl;
         std::cout << "Solver: High-performance (Akos-inspired)" << std::endl;
 

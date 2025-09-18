@@ -21,6 +21,7 @@
 #include <future>
 #include <algorithm>
 #include <optional>
+#include "system_info.h"
 
 // Performance constants
 static constexpr int MAX_PIECES = 256;
@@ -519,7 +520,11 @@ public:
         file >> width >> height;
         num_pieces = width * height;
 
-        std::cout << "Loading " << width << "x" << height << " puzzle for parallel solving..." << std::endl;
+        // Print system and puzzle information
+        SystemInfo system_info;
+        system_info.print_system_header();
+        std::cout << "Puzzle: " << width << "x" << height << " (" << num_pieces << " positions)" << std::endl;
+        std::cout << "Solver: Multi-threaded parallel" << std::endl;
 
         pieces.resize(num_pieces);
         num_edge_types = 0;
@@ -538,7 +543,7 @@ public:
     std::optional<Solution> solve_parallel(int num_threads = std::thread::hardware_concurrency(),
                                           bool first_only = true,
                                           const std::vector<Hint>& hints = {}) {
-        std::cout << "Starting parallel solver with " << num_threads << " threads..." << std::endl;
+        std::cout << "Threads: " << num_threads << std::endl;
 
         std::atomic<bool> solution_found(false);
         std::vector<std::future<std::pair<std::optional<Solution>, ThreadTimings>>> futures;
