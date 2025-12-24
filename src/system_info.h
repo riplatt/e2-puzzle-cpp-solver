@@ -97,6 +97,9 @@ private:
     }
 
     long get_cache_size(const std::string& cache_name) {
+#if defined(__APPLE__)
+        return 0;
+#else
         long cache_size = sysconf(_SC_LEVEL1_ICACHE_SIZE);
 
         if (cache_name == "LEVEL1_ICACHE_SIZE") {
@@ -110,6 +113,7 @@ private:
         }
 
         return (cache_size > 0) ? cache_size : 0;
+#endif
     }
 
 public:
